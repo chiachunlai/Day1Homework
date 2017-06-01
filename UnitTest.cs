@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System.Collections.Generic;
 
 namespace Day1Homework
 {
@@ -10,25 +11,23 @@ namespace Day1Homework
         [TestMethod]
         public void 驗證_三筆一組加總Cost是否相等()
         {
-            var expected = new int[] { 6, 15, 24, 21 };
+            var expected = new List<int> { 6, 15, 24, 21 };
 
-            var stubDataSource = Substitute.For<IDataSource<int>>();
-            stubDataSource.GetSum(3).Returns(new int[]{ 6, 15, 24, 21 });
-
-            var actual = stubDataSource.GetSum(3);
-
+            var target = new TestTarget();
+            
+            var actual = target.Sum(3, Field.Cost);
+ 
             CollectionAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void 驗證_四筆一組加總Revenue是否相等()
         {
-            var expected = new int[] { 55, 66, 60 };
+            var expected = new List<int> { 50, 66, 60 };
 
-            var stubDataSource = Substitute.For<IDataSource<int>>();
-            stubDataSource.GetSum(4).Returns(new int[] { 55, 66, 60 });
+            var target = new TestTarget();
 
-            var actual = stubDataSource.GetSum(4);
+            var actual = target.Sum(4, Field.Revenue);
 
             CollectionAssert.AreEqual(expected, actual);
         }
